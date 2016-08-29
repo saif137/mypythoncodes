@@ -21,12 +21,23 @@ class mySortAlgo:
     @staticmethod
     def bubbleSort(data):
         for index1 in range (len(data) - 1):
-            for index2 in range(index1, len(data)):
+            for index2 in range(index1 + 1, len(data)):
                 if data[index1] > data[index2]:
                     temp = data[index1]
                     data[index1] = data[index2]
                     data[index2] = temp
         print("Data after bubble sort: " + str(data))
+
+    @staticmethod
+    def insertionSort(data):
+        for index1 in range (1, len(data)):
+            key = data[index1]
+            index2 = index1 - 1
+            while index2 >= 0 and data[index2] > key:
+                data[index2 + 1] = data[index2]
+                index2 = index2 - 1
+            data[index2 + 1] = key
+        print("Data after insertion sort: " + str(data))
 
     @staticmethod
     def autoSort(data):

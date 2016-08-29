@@ -22,6 +22,8 @@ if __name__ == "__main__":
     mySearchAlgo.linearSearchAuto([3, 5, 1, 7], 5)
     mySearchAlgo.linearSearchAuto((3, 5, 1, 7), 5)
     mySortAlgo.bubbleSort([3, 5, 1, 7])
+    mySortAlgo.insertionSort([3, 5, 1, 7])
+    mySortAlgo.selectionSort([3, 5, 1, 7])
     mySortAlgo.autoSort([3, 5, 1, 7])
 
     say_hello("Computational Thinking II NOOPS based implementation")
