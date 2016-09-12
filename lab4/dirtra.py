@@ -19,67 +19,74 @@ def diskusage(path):
                 mydata = ""
                 if lenflist > 1:
                     #print("studentid:"),
-                    print(flist[1]+","+filename),
+#                    print(flist[1]+","+filename),
                     mydata  += flist[1]+","+filename
                     if filename.__contains__(".tex"):
-                        print(",Latex file submitted"),
+#                        print(",Latex file submitted"),
                         mydata += ",Latex file submitted"
                     else:
-                        print(","),
+#                        print(","),
                         mydata += ","
                     if lenflist > 2:
-                        print(",created folders"),
+#                        print(",created folders"),
                         mydata += ",created folders"
                     else:
-                        print(","),
+#                        print(","),
                         mydata += ","
                     if filename.__contains__(".pdf"):
-                        print(",PDF file submitted"),
+#                        print(",PDF file submitted"),
                         mydata += ",PDF file submitted"
                     else:
-                        print(","),
+#                        print(","),
                         mydata += ","
                     if filename.__contains__(".zip"):
-                        print(",zip file submitted"),
+#                        print(",zip file submitted"),
                         mydata += ",zip file submitted"
                     else:
-                        print(","),
+#                        print(","),
                         mydata += ","
                     if filename.__contains__(".rar"):
-                        print(",rar file submitted"),
+#                        print(",rar file submitted"),
                         mydata += ",rar file submitted"
                     else:
-                        print(","),
+#                        print(","),
                         mydata += ","
-                    print("") #For new line
+#                    print("") #For new line
                     mydata += "\n"
                     mydatafile.write(mydata)
                 #print("studentid:"),
                 #print(flist)
             diskusage(childpath) #Add child usage to total
 
-def A():
-    afile = open("IDsA.txt","r")
-    dfile = open("lpsassignstdata.csv","r")
+def A(idfile,subtracefile,outputfile):
+    afile = open(idfile,"r")
+    dfile = open(subtracefile,"r")
+    aofile = open(outputfile, "w+")
     for aline in afile:
         found = 0
-        if aline.strip() == 'aa02190':
-            print(aline)
+#        if aline.strip() == 'aa02190':
+#            print(aline)
         for dline in dfile:
-            print(dline.split(","))
-            if aline.strip() == dline.split(",")[0] and (found == 0 or found == 1):
-                print(dline),
+ #           print(dline.split(","))
+            if aline.strip() == dline.split(",")[0] :
+                #print(dline.strip()),
+                aofile.write(dline.strip())
+                aofile.write("\n")
                 found = 1
-            elif found == 1:
-                dfile.seek(0)
-                break;
         if found == 0:
-            print(aline.strip()+",No submission on GIT"),
-        print("")
+            #print(aline.strip()+",No submission on GIT"),
+            aofile.write(aline.strip()+",No submission on GIT")
+            aofile.write("\n")
+        dfile.seek(0)
+        #print("")
     afile.close()
     dfile.close()
+    aofile.close()
 
 if __name__ == '__main__':
-    #diskusage("C:/lpsassignments/")
-    A()
+    diskusage("C:/lpsassignments/")
     mydatafile.close()
+    A("IDsA.txt", "lpsassignstdata.csv", "Asubmissions.csv")
+    A("IDsB.txt", "lpsassignstdata.csv", "Bsubmissions.csv")
+    A("IDsC.txt", "lpsassignstdata.csv", "Csubmissions.csv")
+    A("IDsD.txt", "lpsassignstdata.csv", "Dsubmissions.csv")
