@@ -6,6 +6,18 @@ Purpose: Educational
 
 import pyglet
 from pyglet.window import Window, mouse, gl
+import sys, os
+
+#Required to get it working with PyInstaller
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    try:
+        # PyInstaller creates a temp folder and stores path in _MEIPASS
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
 
 mygame = Window(400, 300,
               resizable=False,  # Make sure it is not resizable
@@ -14,8 +26,14 @@ mygame = Window(400, 300,
               vsync=False  # For flicker-free animation
               )  # Calling base class constructor
 
+working_dir = os.path.dirname(os.path.realpath(__file__))
+pyglet.resource.path = [os.path.join(working_dir,'.')]
+pyglet.resource.reindex()
+print(pyglet.resource.path)
 # Background image use for game
-bgimage = pyglet.resource.image('resources/greebg.GIF')
+#bgimage = pyglet.resource.image('resources/greebg.gif')
+#Works with PyInstaller
+bgimage = pyglet.image.load(resource_path('greebg.gif'))
 
 # Get an instance of current platform
 platform = pyglet.window.get_platform()
@@ -28,13 +46,15 @@ screen = display.get_default_screen()
 # Using resolution to center game window
 mygame.set_location(screen.width // 2 - 200, screen.height // 2 - 150)
 # image for icon of game window
-myicon = pyglet.image.load('resources/ttticon.png')
+myicon = pyglet.image.load(resource_path('ttticon.png'))
 # Setting icon for game window
 mygame.set_icon(myicon)  # setting icon
 
 # Images for cross and O
-cimage = pyglet.resource.image("resources/cross.gif")
-oimage = pyglet.resource.image("resources/o.gif")
+#cimage = pyglet.resource.image("cross.gif")
+cimage = pyglet.image.load(resource_path('cross.gif'))
+#oimage = pyglet.resource.image("o.gif")
+oimage = pyglet.image.load(resource_path('o.gif'))
 # Sprites for each position
 csprite1 = pyglet.sprite.Sprite(cimage, 20, 210)
 csprite1.visible = False
@@ -87,8 +107,6 @@ winlabel = pyglet.text.Label("",
                              x=190, y=175,
                              anchor_x='center', anchor_y='center', color=(0, 0, 0, 255))
 
-def update(self, dt):
-    on_draw()
 
 # To swap the turn on each move
 def mymove():

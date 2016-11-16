@@ -1,0 +1,3 @@
+temperature,humidity,outlook,windy
+high,medium,sunny,FALSE
+low,low,overcast,windy,FALSE
